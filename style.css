@@ -408,9 +408,102 @@ body { font-family: var(--font-sans); background: var(--white); color: var(--bla
 .admin-save-btn { background: var(--black); color: var(--white); border: none; border-radius: 50px; padding: 1rem 2rem; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; font-family: var(--font-sans); transition: transform 0.2s, box-shadow 0.2s; margin-top: auto; }
 .admin-save-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
 
+/* ===== PASSWORD MODAL ===== */
+.pwd-modal { position: fixed; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center; }
+.pwd-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.pwd-box {
+  position: relative;
+  background: var(--white);
+  border-radius: 28px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 380px;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.35);
+  animation: popIn 0.35s var(--ease-out);
+}
+@keyframes popIn { from { transform: scale(0.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.pwd-box.shake { animation: shake 0.4s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-10px)} 40%{transform:translateX(10px)} 60%{transform:translateX(-8px)} 80%{transform:translateX(8px)} }
+
+.pwd-icon { font-size: 2.5rem; line-height: 1; }
+.pwd-box h3 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; color: var(--black); }
+.pwd-box > p { font-size: 0.85rem; color: var(--grey); line-height: 1.5; }
+
+.pwd-input-wrap {
+  position: relative;
+  width: 100%;
+}
+.pwd-input-wrap input {
+  width: 100%;
+  padding: 0.85rem 3rem 0.85rem 1.25rem;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 14px;
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  color: var(--black);
+  background: var(--lighter);
+  outline: none;
+  transition: border-color 0.2s;
+  letter-spacing: 0.15em;
+}
+.pwd-input-wrap input:focus { border-color: var(--black); }
+.pwd-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.25rem;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.pwd-toggle:hover { opacity: 1; }
+
+.pwd-error { font-size: 0.8rem; color: #e53e3e; font-weight: 500; animation: fadeIn 0.25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+.pwd-submit-btn {
+  width: 100%;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  padding: 0.9rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 0.25rem;
+}
+.pwd-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.25); }
+
+.pwd-cancel {
+  background: none;
+  border: none;
+  font-size: 0.82rem;
+  color: var(--grey);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: color 0.2s;
+  text-decoration: underline;
+}
+.pwd-cancel:hover { color: var(--black); }
+
 /* ===== SCROLL REVEAL ===== */
 .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {

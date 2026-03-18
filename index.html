@@ -12,6 +12,24 @@
 </head>
 <body>
 
+  <!-- ===== ADMIN PASSWORD MODAL ===== -->
+  <div id="adminPasswordModal" class="pwd-modal hidden">
+    <div class="pwd-overlay" onclick="closePwdModal()"></div>
+    <div class="pwd-box">
+      <div class="pwd-icon">🔒</div>
+      <h3>Admin Access</h3>
+      <p>Enter your password to edit website content</p>
+      <div class="pwd-input-wrap">
+        <input type="password" id="adminPwdInput" placeholder="Enter password" maxlength="32"
+          onkeydown="if(event.key==='Enter') verifyAdminPassword()" autocomplete="off" />
+        <button class="pwd-toggle" onclick="togglePwdVisibility()" title="Show/Hide">👁</button>
+      </div>
+      <div id="pwdError" class="pwd-error hidden">❌ Incorrect password. Try again.</div>
+      <button class="pwd-submit-btn" onclick="verifyAdminPassword()">Unlock Panel</button>
+      <button class="pwd-cancel" onclick="closePwdModal()">Cancel</button>
+    </div>
+  </div>
+
   <!-- ===== ADMIN PANEL ===== -->
   <div id="adminPanel" class="admin-panel hidden">
     <div class="admin-overlay" onclick="closeAdmin()"></div>

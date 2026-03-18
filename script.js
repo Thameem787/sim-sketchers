@@ -165,9 +165,86 @@ function applyCustomGallery() {
 }
 
 // ──────────────────────────────────────────────────
-// ADMIN OPEN / CLOSE
+// ADMIN PASSWORD GATE
+// Change ADMIN_PASSWORD below to set your password
 // ──────────────────────────────────────────────────
+const ADMIN_PASSWORD = 'simsketchers2026';
+let adminUnlocked = false; // stays true for the full browser session after first correct entry
+let pwdAttempts = 0;
+const MAX_ATTEMPTS = 5;
+
+// Called when user clicks the ✏️ pencil trigger in navbar
 function openAdmin() {
+  if (adminUnlocked) {
+    // Already authenticated this session — open panel directly
+    _openAdminPanel();
+  } else {
+    // Show password modal first
+    const modal = document.getElementById('adminPasswordModal');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      const input = document.getElementById('adminPwdInput');
+      if (input) { input.value = ''; input.focus(); }
+      document.getElementById('pwdError').classList.add('hidden');
+    }, 50);
+  }
+}
+
+function closePwdModal() {
+  document.getElementById('adminPasswordModal').classList.add('hidden');
+  document.body.style.overflow = '';
+  document.getElementById('adminPwdInput').value = '';
+  document.getElementById('pwdError').classList.add('hidden');
+}
+
+function verifyAdminPassword() {
+  if (pwdAttempts >= MAX_ATTEMPTS) {
+    showToast(`Too many attempts. Please refresh the page.`);
+    return;
+  }
+  const input = document.getElementById('adminPwdInput').value;
+  if (input === ADMIN_PASSWORD) {
+    adminUnlocked = true;
+    pwdAttempts = 0;
+    closePwdModal();
+    _openAdminPanel();
+  } else {
+    pwdAttempts++;
+    const errEl = document.getElementById('pwdError');
+    const remaining = MAX_ATTEMPTS - pwdAttempts;
+    errEl.textContent = remaining > 0
+      ? `❌ Incorrect password. ${remaining} attempt${remaining !== 1 ? 's' : ''} left.`
+      : `🔒 Too many attempts. Refresh the page to try again.`;
+    errEl.classList.remove('hidden');
+    // Shake animation
+    const box = document.querySelector('.pwd-box');
+    box.classList.remove('shake');
+    void box.offsetWidth; // force reflow to re-trigger animation
+    box.classList.add('shake');
+    document.getElementById('adminPwdInput').value = '';
+    document.getElementById('adminPwdInput').focus();
+    if (pwdAttempts >= MAX_ATTEMPTS) {
+      document.querySelector('.pwd-submit-btn').disabled = true;
+      document.querySelector('.pwd-submit-btn').style.opacity = '0.4';
+    }
+  }
+}
+
+function togglePwdVisibility() {
+  const input = document.getElementById('adminPwdInput');
+  const btn = document.querySelector('.pwd-toggle');
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    btn.textContent = '👁';
+  }
+}
+
+// Internal: actually open the admin panel (after auth)
+function _openAdminPanel() {
   const panel = document.getElementById('adminPanel');
   panel.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
@@ -204,6 +281,7 @@ function closeAdmin() {
   document.getElementById('adminPanel').classList.add('hidden');
   document.body.style.overflow = '';
 }
+
 
 // ──────────────────────────────────────────────────
 // SAVE ALL CHANGES
@@ -376,6 +454,7 @@ function showToast(msg) {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeLightbox();
+    if (!document.getElementById('adminPasswordModal').classList.contains('hidden')) closePwdModal();
     if (!document.getElementById('adminPanel').classList.contains('hidden')) closeAdmin();
   }
 });
