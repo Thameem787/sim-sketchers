@@ -9,9 +9,9 @@
 const STATE = JSON.parse(localStorage.getItem('simSketchers') || '{}');
 
 const DEFAULTS = {
-  mobile:      '91XXXXXXXXXX',
-  callNumber:  'XXXXXXXXXX',
-  instagram:   'https://www.instagram.com/simsketchers',
+  mobile:      '918248831411',
+  callNumber:  '8248831411',
+  instagram:   'https://www.instagram.com/sims_sketches?igsh=MWw5ZjlvcW9pZG1yMw==',
   heroImg:     null,
   artistImg:   null,
   igProfileImg: null,
