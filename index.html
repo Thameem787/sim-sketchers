@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sim Sketchers – Turn Your Memories into Art</title>
+  <meta name="description" content="Sim Sketchers – Premium custom handmade sketches, portraits & paintings. Order your personalized art today." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== ADMIN PANEL ===== -->
+  <div id="adminPanel" class="admin-panel hidden">
+    <div class="admin-overlay" onclick="closeAdmin()"></div>
+    <div class="admin-drawer">
+      <div class="admin-header">
+        <h2>Edit Website Content</h2>
+        <button class="admin-close" onclick="closeAdmin()">✕</button>
+      </div>
+      <div class="admin-body">
+
+        <div class="admin-section">
+          <h3>📞 Contact Info</h3>
+          <label>Mobile Number (for WhatsApp & Call)</label>
+          <input type="text" id="edit-mobile" placeholder="91XXXXXXXXXX" />
+          <label>Instagram Profile URL</label>
+          <input type="text" id="edit-instagram" placeholder="https://www.instagram.com/simsketchers" />
+        </div>
+
+        <div class="admin-section">
+          <h3>🖼️ Gallery Photos</h3>
+          <p class="admin-hint">Upload new artwork images to the gallery (max 8 images)</p>
+          <div class="gallery-upload-grid" id="galleryUploadGrid"></div>
+          <label class="upload-btn" for="galleryUploadInput">+ Add Artwork</label>
+          <input type="file" id="galleryUploadInput" accept="image/*" multiple style="display:none" onchange="handleGalleryUpload(event)" />
+        </div>
+
+        <div class="admin-section">
+          <h3>🎨 Hero Artwork</h3>
+          <p class="admin-hint">Replace the featured hero image</p>
+          <label class="upload-btn" for="heroUploadInput">Replace Hero Image</label>
+          <input type="file" id="heroUploadInput" accept="image/*" style="display:none" onchange="handleHeroUpload(event)" />
+          <div id="heroPreview" class="hero-upload-preview"></div>
+        </div>
+
+        <button class="admin-save-btn" onclick="saveAdminChanges()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="brand">Sim <em>Sketchers</em></a>
+      <ul class="nav-links">
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#contact" class="nav-cta" id="nav-whatsapp-btn">Order Now</a>
+        <button class="admin-trigger" onclick="openAdmin()" title="Edit Site Content">&#9998;</button>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+      <a href="#pricing" onclick="toggleMenu()">Pricing</a>
+      <a href="#about" onclick="toggleMenu()">About</a>
+      <a href="#contact" onclick="toggleMenu()">Contact</a>
+      <a href="#contact" class="mobile-cta" onclick="toggleMenu()">Order Now</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <p class="hero-label">✦ Handmade &amp; One-of-a-Kind</p>
+      <h1 class="hero-title">
+        Turn Your<br />
+        <em>Memories</em><br />
+        into Art
+      </h1>
+      <p class="hero-sub">Custom handmade sketches, portraits &amp; paintings crafted with love — pencil, charcoal &amp; watercolor.</p>
+      <div class="hero-btns">
+        <a id="hero-whatsapp-link" href="https://wa.me/91XXXXXXXXXX" target="_blank" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Order on WhatsApp
+        </a>
+        <a id="hero-call-link" href="tel:XXXXXXXXXX" class="btn btn-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          Call Now
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">200+</span><span class="stat-label">Portraits Delivered</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Handmade</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">5★</span><span class="stat-label">Customer Rating</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-frame">
+        <img id="heroArtImg" src="hero_portrait.png" alt="Featured Portrait Artwork" />
+        <div class="hero-badge">Featured Work</div>
+      </div>
+      <div class="floating-card fc1">
+        <span>Pencil Sketch</span>
+        <strong>From ₹1000</strong>
+      </div>
+      <div class="floating-card fc2">
+        <span>Color Portrait</span>
+        <strong>From ₹2000</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE STRIP ===== -->
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <span>Pencil Sketches</span><span>✦</span>
+      <span>Watercolor Paintings</span><span>✦</span>
+      <span>Family Portraits</span><span>✦</span>
+      <span>Wedding Moments</span><span>✦</span>
+      <span>Oil Paintings</span><span>✦</span>
+      <span>Charcoal Art</span><span>✦</span>
+      <span>Custom Gifts</span><span>✦</span>
+      <span>Tamil Heritage Art</span><span>✦</span>
+      <span>Pencil Sketches</span><span>✦</span>
+      <span>Watercolor Paintings</span><span>✦</span>
+      <span>Family Portraits</span><span>✦</span>
+      <span>Wedding Moments</span><span>✦</span>
+    </div>
+  </div>
+
+  <!-- ===== PRICING SECTION ===== -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Our Services</p>
+        <h2 class="section-title">Transparent Pricing,<br /><em>Priceless Memories</em></h2>
+      </div>
+      <div class="pricing-grid">
+
+        <div class="price-card">
+          <div class="price-card-img">
+            <img src="gallery_tamil_man.png" alt="Pencil Sketch" />
+            <div class="price-card-overlay"></div>
+          </div>
+          <div class="price-card-body">
+            <span class="price-tag">Most Popular</span>
+            <h3>Pencil / Charcoal Sketch</h3>
+            <p>A timeless black &amp; white portrait capturing every detail of your loved ones — handcrafted in smooth graphite or bold charcoal.</p>
+            <ul class="price-features">
+              <li>✓ Single or group portrait</li>
+              <li>✓ A4 / A3 paper size</li>
+              <li>✓ Free digital copy</li>
+              <li>✓ 7–10 day delivery</li>
+            </ul>
+            <div class="price-amount">
+              <span class="price-from">Starting at</span>
+              <span class="price-value">₹1,000</span>
+            </div>
+            <a id="pencil-order-link" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Sim%20Sketchers!%20I'd%20like%20to%20order%20a%20Pencil%20Sketch." target="_blank" class="btn btn-dark">Order This</a>
+          </div>
+        </div>
+
+        <div class="price-card price-card--featured">
+          <div class="price-card-img">
+            <img src="gallery_color_couple.png" alt="Color Portrait" />
+            <div class="price-card-overlay"></div>
+          </div>
+          <div class="price-card-body">
+            <span class="price-tag featured-tag">Premium</span>
+            <h3>Color Portrait / Painting</h3>
+            <p>Vibrant watercolor, acrylic or colored-pencil portraits brimming with life — perfect for gifting on anniversaries &amp; birthdays.</p>
+            <ul class="price-features">
+              <li>✓ Full color, lifelike rendering</li>
+              <li>✓ Choice of medium</li>
+              <li>✓ Free digital copy + frame option</li>
+              <li>✓ 10–14 day delivery</li>
+            </ul>
+            <div class="price-amount">
+              <span class="price-from">Starting at</span>
+              <span class="price-value">₹2,000</span>
+            </div>
+            <a id="color-order-link" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Sim%20Sketchers!%20I'd%20like%20to%20order%20a%20Color%20Portrait." target="_blank" class="btn btn-light">Order This</a>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-card-img">
+            <img src="gallery_landscape.png" alt="Landscape Painting" />
+            <div class="price-card-overlay"></div>
+          </div>
+          <div class="price-card-body">
+            <span class="price-tag">New</span>
+            <h3>Landscape / Scene Painting</h3>
+            <p>Capture your favourite place — village, temple, wedding venue — in a stunning handmade watercolor or acrylic painting.</p>
+            <ul class="price-features">
+              <li>✓ Any scene or location</li>
+              <li>✓ A3 / A2 canvas available</li>
+              <li>✓ Free digital copy</li>
+              <li>✓ 12–15 day delivery</li>
+            </ul>
+            <div class="price-amount">
+              <span class="price-from">Starting at</span>
+              <span class="price-value">₹2,500</span>
+            </div>
+            <a id="landscape-order-link" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Sim%20Sketchers!%20I'd%20like%20to%20order%20a%20Landscape%20Painting." target="_blank" class="btn btn-dark">Order This</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY SECTION ===== -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Portfolio</p>
+        <h2 class="section-title">A Glimpse of<br /><em>Our Artworks</em></h2>
+      </div>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item gallery-item--tall">
+        <img src="gallery_tamil_family.png" alt="Tamil Family Portrait" loading="lazy" />
+        <div class="gallery-caption">Family Portrait · Pencil Sketch</div>
+      </div>
+      <div class="gallery-item">
+        <img src="gallery_tamil_man.png" alt="Elderly Tamil Man" loading="lazy" />
+        <div class="gallery-caption">Grandfather · Charcoal</div>
+      </div>
+      <div class="gallery-item">
+        <img src="gallery_elder_woman.png" alt="Tamil Grandmother" loading="lazy" />
+        <div class="gallery-caption">Paati · Pencil Sketch</div>
+      </div>
+      <div class="gallery-item gallery-item--wide">
+        <img src="gallery_color_couple.png" alt="Tamil Couple Color" loading="lazy" />
+        <div class="gallery-caption">Wedding Couple · Color Portrait</div>
+      </div>
+      <div class="gallery-item">
+        <img src="gallery_young_man.png" alt="Young Tamil Man" loading="lazy" />
+        <div class="gallery-caption">Portrait · Pencil</div>
+      </div>
+      <div class="gallery-item gallery-item--tall">
+        <img src="gallery_landscape.png" alt="Tamil Village Painting" loading="lazy" />
+        <div class="gallery-caption">Village Scene · Watercolor</div>
+      </div>
+      <div class="gallery-item">
+        <img src="gallery_couple.png" alt="Couple Sketch" loading="lazy" />
+        <div class="gallery-caption">Couple · Charcoal</div>
+      </div>
+      <div class="gallery-item">
+        <img src="gallery_baby.png" alt="Baby Portrait" loading="lazy" />
+        <div class="gallery-caption">Baby Portrait · Pencil</div>
+      </div>
+    </div>
+    <div class="gallery-cta">
+      <a id="gallery-whatsapp-link" href="https://wa.me/91XXXXXXXXXX?text=Hi!%20I%20saw%20your%20gallery%20and%20want%20to%20order%20a%20portrait." target="_blank" class="btn btn-dark">Order Your Portrait →</a>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-img-col">
+        <div class="about-img-stack">
+          <img class="about-img about-img-1" src="gallery_tamil_family.png" alt="Sim Sketchers Art" />
+          <img class="about-img about-img-2" src="gallery_color_couple.png" alt="Sim Sketchers Art 2" />
+        </div>
+      </div>
+      <div class="about-text-col">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">Art That Speaks<br /><em>From the Heart</em></h2>
+        <p class="about-desc">Sim Sketchers was born from a simple belief — that every face tells a story worth preserving. What started as a passion for pencil portraits grew into a full art studio dedicated to capturing Tamil families, elders, children and couples in stunning handmade artwork.</p>
+        <p class="about-desc">Every sketch, every stroke of paint, is done entirely by hand. No digital filters. No shortcuts. Just raw artistry and genuine love poured into every piece we create.</p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <span class="pillar-icon">✍️</span>
+            <strong>100% Handmade</strong>
+            <p>Every piece crafted by hand, no prints</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon">🖼️</span>
+            <strong>Custom Art</strong>
+            <p>Made uniquely for you from your photo</p>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon">❤️</span>
+            <strong>Emotional Value</strong>
+            <p>Gifts that last a lifetime, filled with feeling</p>
+          </div>
+        </div>
+        <div class="about-social">
+          <a id="about-instagram-link" href="https://www.instagram.com/simsketchers" target="_blank" class="social-btn instagram-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            Follow on Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <p class="section-label" style="color:rgba(255,255,255,0.6)">Get in Touch</p>
+      <h2 class="section-title contact-title">Ready to Order<br /><em>Your Artwork?</em></h2>
+      <p class="contact-sub">Simply send us a message on WhatsApp or call us — share your photo and we'll bring it to life. No complex forms. No wait times. Just art.</p>
+      <div class="contact-btns">
+        <a id="contact-whatsapp-link" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Sim%20Sketchers!%20I%20want%20to%20order%20a%20custom%20portrait." target="_blank" class="btn btn-white-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Chat on WhatsApp
+        </a>
+        <a id="contact-call-link" href="tel:XXXXXXXXXX" class="btn btn-outline-white">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          Call Now
+        </a>
+        <a id="contact-instagram-link" href="https://www.instagram.com/simsketchers" target="_blank" class="btn btn-outline-white">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Instagram
+        </a>
+      </div>
+      <p class="contact-note">⚡ We usually reply within 30 minutes!</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand">Sim <em>Sketchers</em></span>
+        <p>Premium handmade art for your most cherished memories.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#gallery">Gallery</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-socials">
+        <a id="footer-instagram-link" href="https://www.instagram.com/simsketchers" target="_blank" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a id="footer-whatsapp-link" href="https://wa.me/91XXXXXXXXXX" target="_blank" aria-label="WhatsApp">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Sim Sketchers. All rights reserved. Made with ❤️ in Tamil Nadu.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
